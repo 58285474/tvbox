@@ -35,12 +35,14 @@
 tvbox/
 ├── .github/workflows/update.yml   # GitHub Actions 自动更新工作流
 ├── config/sources.json            # 配置源列表（主地址 + 备用地址），可自行增删改
-├── scripts/update.py              # 核心更新脚本（下载→校验→合并→落盘→更新状态）
-├── output/                        # 更新产物（由脚本自动生成并提交）
-│   ├── 多仓订阅.json               # 多仓聚合订阅（推荐，App 内可切换各源）
-│   ├── 单仓聚合.json               # 单仓聚合（所有源 sites 合并成一个，开箱即用）
-│   ├── shield.json                # shields.io 状态徽章数据
-│   ├── status.json                # 各源更新状态（机器可读）
+├── scripts/
+│   ├──update.py
+│   └──tsjm.py                      # 核心更新脚本（下载→校验→合并→落盘→更新状态）
+├── output/                         # 更新产物（由脚本自动生成并提交）
+│   ├── 多仓订阅.json                 # 多仓聚合订阅（推荐，App 内可切换各源）
+│   ├── 单仓聚合.json                 # 单仓聚合（所有源 sites 合并成一个，开箱即用）
+│   ├── shield.json                 # shields.io 状态徽章数据
+│   ├── status.json                 # 各源更新状态（机器可读）
 │   ├── feimao.json / fantaiying.json / ...  # 各源独立配置
 │   └── ...
 ├── requirements.txt
