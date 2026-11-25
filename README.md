@@ -100,7 +100,7 @@ tvbox-ysc-config/
 
 ```bash
 pip install -r requirements.txt
-REPO=Lightconer/tvbox-ysc-config python scripts/update.py
+REPO=58285474/tvbox python scripts/update.py
 ```
 
 ## 七、脚本特性
