@@ -36,7 +36,7 @@ CONFIG_FILE = os.path.join(ROOT, "config", "sources.json")
 OUTPUT_DIR = os.path.join(ROOT, "output")
 FTY_SCRIPT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tsjm.py")
 
-DEFAULT_REPO = "YOUR_USERNAME/tvbox-ysc-config"  # 本地运行时的占位仓库名，GitHub Actions 会自动覆盖
+DEFAULT_REPO = "58285474/tvbox"  # 本地运行时的占位仓库名，GitHub Actions 会自动覆盖
 
 # 模拟 TVBox / 影视仓 客户端请求头
 USER_AGENT = "okhttp/4.12.0"
