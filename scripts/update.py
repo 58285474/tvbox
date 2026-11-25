@@ -9,7 +9,8 @@
   3. 校验返回内容是否为合法的 TVBox/影视仓 单仓配置（包含 sites/spiders/lives 等字段）
      或 多仓订阅（顶层含 urls 数组）
   4. 再按特殊源处理（调用 tsjm.py 提取饭太硬 JPEG+Base64 配置；
-     若当前网络如 GitHub Actions 海外节点抓取失败，自动回退使用本地 output/fantaiying.json 缓存）
+     若当前网络如 GitHub Actions 海外节点抓取失败，自动回退使用本地 output/fantaiying.json 缓存），
+     并将饭太硬排在多仓订阅与单仓聚合的首位
   5. 将每个源的最新配置保存到 output/<id>.json
   6. 生成多仓订阅文件 output/多仓订阅.json（可直接填进影视仓的"订阅"或"多仓"）
   7. 生成聚合单仓 output/单仓聚合.json（所有源 sites/lives/parses 合并去重）
@@ -413,19 +414,19 @@ def main() -> int:
         # 源之间稍作间隔，避免集中请求被限流
         time.sleep(SOURCE_INTERVAL)
 
-    # 2. 再按特殊源处理（如饭太硬：先跑 tsjm.py，失败回退本地缓存，并覆盖常规源里的同名项）
+    # 2. 再按特殊源处理（如饭太硬：先跑 tsjm.py，失败回退本地缓存，并覆盖常规源里的同名项，排在首位）
     fty_entry, fty_sub, fty_fetched = run_fantaiying(raw_base)
     status["sources"] = [
         s for s in status["sources"]
         if s.get("id") != fty_entry["id"] and s.get("name") != fty_entry["name"]
     ]
-    status["sources"].append(fty_entry)
+    status["sources"].insert(0, fty_entry)
 
     subscriptions = [u for u in subscriptions if u.get("name") != fty_entry["name"]]
     fetched = [item for item in fetched if item[0] != fty_entry["id"]]
     if fty_entry["ok"]:
-        subscriptions.append(fty_sub)
-        fetched.append(fty_fetched)
+        subscriptions.insert(0, fty_sub)
+        fetched.insert(0, fty_fetched)
 
     ok_count = sum(1 for s in status["sources"] if s.get("ok"))
     total = len(status["sources"])
