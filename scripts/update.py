@@ -4,16 +4,16 @@
 影视仓 / TVBox 配置自动更新脚本
 =================================
 功能：
-  0. 优先调用 fetch_fantaiying.py 提取饭太硬（JPEG+Base64封装）最新配置；
-     若当前网络（如 GitHub Actions 海外节点）抓取失败，自动回退使用本地 output/fantaiying.json 缓存
-  1. 读取 config/sources.json 中的配置源列表
+  1. 读取 config/sources.json 中的配置源列表，先按常规源依次抓取
   2. 对每个源依次尝试"主线 + 备用"多个地址，自动做中文域名 punycode 转换
   3. 校验返回内容是否为合法的 TVBox/影视仓 单仓配置（包含 sites/spiders/lives 等字段）
      或 多仓订阅（顶层含 urls 数组）
-  4. 将每个源的最新配置保存到 output/<id>.json
-  5. 生成多仓订阅文件 output/多仓订阅.json（可直接填进影视仓的"订阅"或"多仓"）
-  6. 生成聚合单仓 output/单仓聚合.json（所有源 sites/lives/parses 合并去重）
-  7. 生成 shields 徽章 output/shield.json，并把各源状态写回 README
+  4. 再按特殊源处理（调用 fetch_fantaiying.py 提取饭太硬 JPEG+Base64 配置；
+     若当前网络如 GitHub Actions 海外节点抓取失败，自动回退使用本地 output/fantaiying.json 缓存）
+  5. 将每个源的最新配置保存到 output/<id>.json
+  6. 生成多仓订阅文件 output/多仓订阅.json（可直接填进影视仓的"订阅"或"多仓"）
+  7. 生成聚合单仓 output/单仓聚合.json（所有源 sites/lives/parses 合并去重）
+  8. 生成 shields 徽章 output/shield.json，并把各源状态写回 README
 兼容：本脚本同时兼容 GitHub Actions 自动运行 与 本地手动运行。
 在 GitHub Actions 中，环境变量 GITHUB_REPOSITORY 会被自动注入（格式 owner/repo），
 用于拼出多仓订阅里指向本仓库 raw 文件的完整 URL。
@@ -157,7 +157,7 @@ def fetch_config(url: str) -> dict:
 
 
 def run_fantaiying(raw_base: str):
-    """先运行 fetch_fantaiying.py 抓取饭太硬；失败时回退读取本地 output/fantaiying.json 缓存。
+    """运行 fetch_fantaiying.py 抓取饭太硬；失败时回退读取本地 output/fantaiying.json 缓存。
     返回: (entry_dict, sub_dict_or_None, fetched_tuple_or_None)
     """
     sid = "fantaiying"
@@ -352,21 +352,9 @@ def main() -> int:
     status = {"updated_at": now_str, "repo": repo, "sources": []}
     subscriptions = []
     fetched = []  # [(sid, name, data_dict), ...] 用于聚合单仓
-    ok_count = 0
 
-    # 0. 先运行 fetch_fantaiying.py（作为首位基底源，优先保留其 spider/wallpaper/logo）
-    fty_entry, fty_sub, fty_fetched = run_fantaiying(raw_base)
-    status["sources"].append(fty_entry)
-    if fty_entry["ok"]:
-        ok_count += 1
-        subscriptions.append(fty_sub)
-        fetched.append(fty_fetched)
-
-    # 1. 遍历 config/sources.json 中的常规源
-    sources_list = [
-        s for s in cfg.get("sources", [])
-        if s.get("id") != "fantaiying" and s.get("name") != "饭太硬"
-    ]
+    # 1. 先按常规源遍历 config/sources.json
+    sources_list = cfg.get("sources", [])
     for src in sources_list:
         name = src.get("name", "未知")
         sid = src.get("id", name)
@@ -388,7 +376,6 @@ def main() -> int:
                     {"name": name, "url": f"{raw_base}/{sid}.json"}
                 )
                 fetched.append((sid, name, data))
-                ok_count += 1
                 saved = True
                 print(f"[OK]   {name} <- {url}")
                 break
@@ -414,7 +401,6 @@ def main() -> int:
                         entry["ok"] = True
                         entry["cached"] = True
                         entry["used_url"] = "(缓存)"
-                        ok_count += 1
                         saved = True
                         print(f"[CACHE] {name}  使用上次缓存配置")
                 except Exception:
@@ -426,6 +412,23 @@ def main() -> int:
 
         # 源之间稍作间隔，避免集中请求被限流
         time.sleep(SOURCE_INTERVAL)
+
+    # 2. 再按特殊源处理（如饭太硬：先跑 fetch_fantaiying.py，失败回退本地缓存，并覆盖常规源里的同名项）
+    fty_entry, fty_sub, fty_fetched = run_fantaiying(raw_base)
+    status["sources"] = [
+        s for s in status["sources"]
+        if s.get("id") != fty_entry["id"] and s.get("name") != fty_entry["name"]
+    ]
+    status["sources"].append(fty_entry)
+
+    subscriptions = [u for u in subscriptions if u.get("name") != fty_entry["name"]]
+    fetched = [item for item in fetched if item[0] != fty_entry["id"]]
+    if fty_entry["ok"]:
+        subscriptions.append(fty_sub)
+        fetched.append(fty_fetched)
+
+    ok_count = sum(1 for s in status["sources"] if s.get("ok"))
+    total = len(status["sources"])
 
     # 生成多仓订阅文件（影视仓"订阅/多仓"格式）
     sub_path = os.path.join(OUTPUT_DIR, "多仓订阅.json")
@@ -446,7 +449,6 @@ def main() -> int:
         json.dump(status, f, ensure_ascii=False, indent=2)
 
     # 生成 shields 徽章并更新 README 状态表
-    total = len(status["sources"])
     write_badge(ok_count, total)
     update_readme(status, ok_count, total)
 
