@@ -12,11 +12,10 @@
 ## 一、源可用性状态
 
 <!-- STATUS_START -->
-> 🔄 最近更新：2026-11-25 14:49:13（北京时间） · 成功 **10/10** 个源
+> 🔄 最近更新：2026-11-25 15:43:38（北京时间） · 成功 **10/10** 个源
 
 | 配置源 | 状态 | 使用地址 |
 | --- | --- | --- |
-| 饭太硬 | ✅ 成功 | `http://www.xn--sss604efuw.net/tv (JPEG解包)` |
 | 肥猫 | ✅ 成功 | `https://6296.kstore.vip/facat.json` |
 | 王二小 | ✅ 成功 | `https://d.kstore.dev/download/9280/wex.json` |
 | 老刘备 | ✅ 成功 | `https://raw.liucn.cc/box/m.json` |
@@ -26,6 +25,7 @@
 | 小盒子单仓 | ✅ 成功 | `http://xhztv.top/xhz` |
 | 拾光多仓 | ✅ 成功 | `http://xmbjm.fh4u.org/dc.txt` |
 | 挺好分享多仓 | ✅ 成功 | `http://ztha.top/TVBox/GYCK.json` |
+| 饭太硬 | ✅ 成功 | `http://www.xn--sss604efuw.net/tv (JPEG解包)` |
 <!-- STATUS_END -->
 
 ## 二、仓库结构
