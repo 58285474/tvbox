@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-25 15:43:38",
+  "updated_at": "2026-11-25 15:55:13",
   "repo": "58285474/tvbox",
   "sources": [
     {
@@ -70,8 +70,9 @@
       "id": "fantaiying",
       "name": "饭太硬",
       "ok": true,
-      "used_url": "http://www.xn--sss604efuw.net/tv (JPEG解包)",
-      "error": null
+      "used_url": "(缓存)",
+      "error": null,
+      "cached": true
     }
   ]
 }
