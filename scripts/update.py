@@ -446,7 +446,7 @@ def main() -> int:
         json.dump(status, f, ensure_ascii=False, indent=2)
 
     # 生成 shields 徽章并更新 README 状态表
-    total = 1 + len(sources_list)
+    total = len(status["sources"])
     write_badge(ok_count, total)
     update_readme(status, ok_count, total)
 
