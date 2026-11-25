@@ -1,20 +1,20 @@
 {
-  "updated_at": "2026-11-25 14:13:40",
+  "updated_at": "2026-11-25 14:14:34",
   "repo": "58285474/tvbox",
   "sources": [
+    {
+      "id": "fantaiying",
+      "name": "饭太硬",
+      "ok": true,
+      "used_url": "http://www.xn--sss604efuw.net/tv (JPEG解包)",
+      "error": null
+    },
     {
       "id": "feimao",
       "name": "肥猫",
       "ok": true,
       "used_url": "https://6296.kstore.vip/facat.json",
       "error": null
-    },
-    {
-      "id": "fantaiying",
-      "name": "饭太硬",
-      "ok": false,
-      "used_url": null,
-      "error": "HTTPConnectionPool(host='www.xn--sss604efuw.xyz', port=80): Max retries exceeded with url: /tv (Caused by NameResolutionError(\"HTTPConnection(host='www.xn--sss604efuw.xyz', port=80): Failed to resolve 'www.xn--sss604efuw.xyz' ([Errno -2] Name or service not known)\"))"
     },
     {
       "id": "wangerxiao",
