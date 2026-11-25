@@ -32,7 +32,7 @@
 ## 二、仓库结构
 
 ```
-tvbox-ysc-config/
+tvbox/
 ├── .github/workflows/update.yml   # GitHub Actions 自动更新工作流
 ├── config/sources.json            # 配置源列表（主地址 + 备用地址），可自行增删改
 ├── scripts/update.py              # 核心更新脚本（下载→校验→合并→落盘→更新状态）
