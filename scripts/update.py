@@ -4,6 +4,8 @@
 影视仓 / TVBox 配置自动更新脚本
 =================================
 功能：
+  0. 优先调用 fetch_fantaiying.py 提取饭太硬（JPEG+Base64封装）最新配置；
+     若当前网络（如 GitHub Actions 海外节点）抓取失败，自动回退使用本地 output/fantaiying.json 缓存
   1. 读取 config/sources.json 中的配置源列表
   2. 对每个源依次尝试"主线 + 备用"多个地址，自动做中文域名 punycode 转换
   3. 校验返回内容是否为合法的 TVBox/影视仓 单仓配置（包含 sites/spiders/lives 等字段）
@@ -21,6 +23,7 @@
 import datetime
 import json
 import os
+import subprocess
 import sys
 import time
 import urllib.parse
@@ -30,10 +33,11 @@ import requests
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONFIG_FILE = os.path.join(ROOT, "config", "sources.json")
 OUTPUT_DIR = os.path.join(ROOT, "output")
+FTY_SCRIPT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fetch_fantaiying.py")
 
 DEFAULT_REPO = "YOUR_USERNAME/tvbox-ysc-config"  # 本地运行时的占位仓库名，GitHub Actions 会自动覆盖
 
-# 注意：部分接口的反爬会针对"完整 Chrome UA"下发挑战页，反而用简洁 UA 能正常返回 JSON
+# 模拟 TVBox / 影视仓 客户端请求头
 USER_AGENT = "okhttp/4.12.0"
 
 TIMEOUT = 15  # 单个地址超时（秒）
@@ -150,6 +154,60 @@ def fetch_config(url: str) -> dict:
             else:
                 break
     raise last_err
+
+
+def run_fantaiying(raw_base: str):
+    """先运行 fetch_fantaiying.py 抓取饭太硬；失败时回退读取本地 output/fantaiying.json 缓存。
+    返回: (entry_dict, sub_dict_or_None, fetched_tuple_or_None)
+    """
+    sid = "fantaiying"
+    name = "饭太硬"
+    out_path = os.path.join(OUTPUT_DIR, f"{sid}.json")
+    entry = {"id": sid, "name": name, "ok": False, "used_url": None, "error": None}
+
+    fetched_ok = False
+    err_msg = None
+    if os.path.exists(FTY_SCRIPT):
+        try:
+            res = subprocess.run(
+                [sys.executable, FTY_SCRIPT],
+                capture_output=True,
+                text=True,
+                timeout=30,
+            )
+            if res.returncode == 0:
+                fetched_ok = True
+                if res.stdout.strip():
+                    print(res.stdout.strip())
+            else:
+                err_msg = (res.stdout or res.stderr or "fetch_fantaiying.py 返回非 0").strip().splitlines()[-1]
+                print(f"[WARN] {name} 实时抓取未成功（{err_msg}），尝试读取本地缓存...")
+        except Exception as e:  # noqa: BLE001
+            err_msg = str(e)
+            print(f"[WARN] {name} 脚本执行异常（{err_msg}），尝试读取本地缓存...")
+    else:
+        err_msg = "未找到 scripts/fetch_fantaiying.py"
+
+    if os.path.exists(out_path):
+        try:
+            with open(out_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if is_valid_tvbox_config(data):
+                entry["ok"] = True
+                if fetched_ok:
+                    entry["used_url"] = "http://www.xn--sss604efuw.net/tv (JPEG解包)"
+                else:
+                    entry["cached"] = True
+                    entry["used_url"] = "(缓存)"
+                    print(f"[CACHE] {name}  使用上次本地提取缓存")
+                sub = {"name": name, "url": f"{raw_base}/{sid}.json"}
+                return entry, sub, (sid, name, data)
+        except Exception as e:  # noqa: BLE001
+            err_msg = f"缓存读取失败: {e}"
+
+    entry["error"] = err_msg or "抓取失败且无可用缓存"
+    print(f"[FAIL] {name}  {entry['error']}")
+    return entry, None, None
 
 
 def _merge_list(fetched, field):
@@ -294,9 +352,22 @@ def main() -> int:
     status = {"updated_at": now_str, "repo": repo, "sources": []}
     subscriptions = []
     fetched = []  # [(sid, name, data_dict), ...] 用于聚合单仓
-
     ok_count = 0
-    for src in cfg.get("sources", []):
+
+    # 0. 先运行 fetch_fantaiying.py（作为首位基底源，优先保留其 spider/wallpaper/logo）
+    fty_entry, fty_sub, fty_fetched = run_fantaiying(raw_base)
+    status["sources"].append(fty_entry)
+    if fty_entry["ok"]:
+        ok_count += 1
+        subscriptions.append(fty_sub)
+        fetched.append(fty_fetched)
+
+    # 1. 遍历 config/sources.json 中的常规源
+    sources_list = [
+        s for s in cfg.get("sources", [])
+        if s.get("id") != "fantaiying" and s.get("name") != "饭太硬"
+    ]
+    for src in sources_list:
         name = src.get("name", "未知")
         sid = src.get("id", name)
         urls = src.get("urls", [])
@@ -375,7 +446,7 @@ def main() -> int:
         json.dump(status, f, ensure_ascii=False, indent=2)
 
     # 生成 shields 徽章并更新 README 状态表
-    total = len(cfg.get("sources", []))
+    total = 1 + len(sources_list)
     write_badge(ok_count, total)
     update_readme(status, ok_count, total)
 
