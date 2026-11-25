@@ -8,7 +8,7 @@
   2. 对每个源依次尝试"主线 + 备用"多个地址，自动做中文域名 punycode 转换
   3. 校验返回内容是否为合法的 TVBox/影视仓 单仓配置（包含 sites/spiders/lives 等字段）
      或 多仓订阅（顶层含 urls 数组）
-  4. 再按特殊源处理（调用 fetch_fantaiying.py 提取饭太硬 JPEG+Base64 配置；
+  4. 再按特殊源处理（调用 tsjm.py 提取饭太硬 JPEG+Base64 配置；
      若当前网络如 GitHub Actions 海外节点抓取失败，自动回退使用本地 output/fantaiying.json 缓存）
   5. 将每个源的最新配置保存到 output/<id>.json
   6. 生成多仓订阅文件 output/多仓订阅.json（可直接填进影视仓的"订阅"或"多仓"）
@@ -33,7 +33,7 @@ import requests
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONFIG_FILE = os.path.join(ROOT, "config", "sources.json")
 OUTPUT_DIR = os.path.join(ROOT, "output")
-FTY_SCRIPT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fetch_fantaiying.py")
+FTY_SCRIPT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tsjm.py")
 
 DEFAULT_REPO = "YOUR_USERNAME/tvbox-ysc-config"  # 本地运行时的占位仓库名，GitHub Actions 会自动覆盖
 
@@ -157,7 +157,7 @@ def fetch_config(url: str) -> dict:
 
 
 def run_fantaiying(raw_base: str):
-    """运行 fetch_fantaiying.py 抓取饭太硬；失败时回退读取本地 output/fantaiying.json 缓存。
+    """运行 tsjm.py 抓取饭太硬；失败时回退读取本地 output/fantaiying.json 缓存。
     返回: (entry_dict, sub_dict_or_None, fetched_tuple_or_None)
     """
     sid = "fantaiying"
@@ -180,13 +180,13 @@ def run_fantaiying(raw_base: str):
                 if res.stdout.strip():
                     print(res.stdout.strip())
             else:
-                err_msg = (res.stdout or res.stderr or "fetch_fantaiying.py 返回非 0").strip().splitlines()[-1]
+                err_msg = (res.stdout or res.stderr or "tsjm.py 返回非 0").strip().splitlines()[-1]
                 print(f"[WARN] {name} 实时抓取未成功（{err_msg}），尝试读取本地缓存...")
         except Exception as e:  # noqa: BLE001
             err_msg = str(e)
             print(f"[WARN] {name} 脚本执行异常（{err_msg}），尝试读取本地缓存...")
     else:
-        err_msg = "未找到 scripts/fetch_fantaiying.py"
+        err_msg = "未找到 scripts/tsjm.py"
 
     if os.path.exists(out_path):
         try:
@@ -413,7 +413,7 @@ def main() -> int:
         # 源之间稍作间隔，避免集中请求被限流
         time.sleep(SOURCE_INTERVAL)
 
-    # 2. 再按特殊源处理（如饭太硬：先跑 fetch_fantaiying.py，失败回退本地缓存，并覆盖常规源里的同名项）
+    # 2. 再按特殊源处理（如饭太硬：先跑 tsjm.py，失败回退本地缓存，并覆盖常规源里的同名项）
     fty_entry, fty_sub, fty_fetched = run_fantaiying(raw_base)
     status["sources"] = [
         s for s in status["sources"]
