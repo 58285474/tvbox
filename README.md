@@ -12,7 +12,7 @@
 ## 一、源可用性状态
 
 <!-- STATUS_START -->
-> 🔄 最近更新：2026-11-25 16:41:50（北京时间） · 成功 **10/10** 个源
+> 🔄 最近更新：2026-11-25 17:35:24（北京时间） · 成功 **11/11** 个源
 
 | 配置源 | 状态 | 使用地址 |
 | --- | --- | --- |
@@ -22,6 +22,7 @@
 | 老刘备 | ✅ 成功 | `https://raw.liucn.cc/box/m.json` |
 | 小马 | ✅ 成功 | `https://szyyds.cn/tv/x.json` |
 | 讴歌 | 📦 缓存 | 上次成功配置（本次更新未抓到，沿用缓存） |
+| Easy | ✅ 成功 | `https://15318.kstore.space/easytv.jpg` |
 | 4K小盒子 | ✅ 成功 | `http://xhztv.top/4k.json` |
 | 小盒子单仓 | ✅ 成功 | `http://xhztv.top/xhz` |
 | 拾光多仓 | ✅ 成功 | `http://xmbjm.fh4u.org/dc.txt` |

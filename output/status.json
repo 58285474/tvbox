@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-25 16:41:50",
+  "updated_at": "2026-11-25 17:35:24",
   "repo": "58285474/tvbox",
   "sources": [
     {
@@ -44,6 +44,13 @@
       "used_url": "(缓存)",
       "error": "HTTPSConnectionPool(host='xn--dkw0c.v.nxog.top', port=443): Max retries exceeded with url: /m/ (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'xn--dkw0c.v.nxog.top'. (_ssl.c:1018)\")))",
       "cached": true
+    },
+    {
+      "id": "easy",
+      "name": "Easy",
+      "ok": true,
+      "used_url": "https://15318.kstore.space/easytv.jpg",
+      "error": null
     },
     {
       "id": "4k",

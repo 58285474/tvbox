@@ -2,7 +2,7 @@
   "urls": [
     {
       "name": "饭太硬",
-      "url": "888https://gh-proxy.org/https://raw.githubusercontent.com/58285474/tvbox/main/output/fantaiying.json"
+      "url": "https://gh-proxy.org/https://raw.githubusercontent.com/58285474/tvbox/main/output/fantaiying.json"
     },
     {
       "name": "肥猫",
@@ -23,6 +23,10 @@
     {
       "name": "讴歌",
       "url": "https://gh-proxy.org/https://raw.githubusercontent.com/58285474/tvbox/main/output/ouge.json"
+    },
+    {
+      "name": "Easy",
+      "url": "https://gh-proxy.org/https://raw.githubusercontent.com/58285474/tvbox/main/output/easy.json"
     },
     {
       "name": "4K小盒子",
