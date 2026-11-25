@@ -1,7 +1,14 @@
 {
-  "updated_at": "2026-11-25 15:59:53",
+  "updated_at": "2026-11-25 16:41:50",
   "repo": "58285474/tvbox",
   "sources": [
+    {
+      "id": "fantaiying",
+      "name": "饭太硬",
+      "ok": true,
+      "used_url": "http://www.xn--sss604efuw.net/tv (JPEG解包)",
+      "error": null
+    },
     {
       "id": "feimao",
       "name": "肥猫",
@@ -64,13 +71,6 @@
       "name": "挺好分享多仓",
       "ok": true,
       "used_url": "http://ztha.top/TVBox/GYCK.json",
-      "error": null
-    },
-    {
-      "id": "fantaiying",
-      "name": "饭太硬",
-      "ok": true,
-      "used_url": "http://www.xn--sss604efuw.net/tv (JPEG解包)",
       "error": null
     }
   ]
