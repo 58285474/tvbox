@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-25 13:33:59",
+  "updated_at": "2026-11-25 13:39:23",
   "repo": "58285474/tvbox",
   "sources": [
     {
@@ -14,7 +14,7 @@
       "name": "饭太硬",
       "ok": false,
       "used_url": null,
-      "error": "HTTPConnectionPool(host='fty.xxooo.cf', port=80): Max retries exceeded with url: /tv (Caused by NameResolutionError(\"HTTPConnection(host='fty.xxooo.cf', port=80): Failed to resolve 'fty.xxooo.cf' ([Errno -2] Name or service not known)\"))"
+      "error": "HTTPConnectionPool(host='www.xn--sss604efuw.xyz', port=80): Max retries exceeded with url: /tv (Caused by NameResolutionError(\"HTTPConnection(host='www.xn--sss604efuw.xyz', port=80): Failed to resolve 'www.xn--sss604efuw.xyz' ([Errno -2] Name or service not known)\"))"
     },
     {
       "id": "wangerxiao",
