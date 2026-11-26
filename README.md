@@ -13,7 +13,7 @@
 ## 一、源可用性状态
 
 <!-- STATUS_START -->
-> 🔄 最近更新：2026-11-27 06:44:16（北京时间） · 成功 **11/11** 个源
+> 🔄 最近更新：2026-11-27 07:50:59（北京时间） · 成功 **20/20** 个源
 
 | 配置源 | 状态 | 使用地址 |
 | --- | --- | --- |
@@ -26,8 +26,17 @@
 | Easy | ✅ 成功 | `https://15318.kstore.space/easytv.jpg` |
 | 4K小盒子 | ✅ 成功 | `http://xhztv.top/4k.json` |
 | 小盒子单仓 | ✅ 成功 | `http://xhztv.top/xhz` |
-| 拾光多仓 | ✅ 成功 | `http://xmbjm.fh4u.org/dc.txt` |
-| 挺好分享多仓 | ✅ 成功 | `http://ztha.top/TVBox/GYCK.json` |
+| 嗷呜线路 | ✅ 成功 | `https://9763.kstore.vip/aowu.json` |
+| 🚀盒子迷 | ✅ 成功 | `https://盒子迷.top/禁止贩卖` |
+| 🚀dxawi线路 | ✅ 成功 | `http://dxawi.github.io/0/0.json` |
+| 🙀小何线路 | ✅ 成功 | `https://jihulab.com/z-blog/xh2/-/raw/main/t.json` |
+| QIST自用 | ✅ 成功 | `https://raw.githubusercontent.com/qist/tvbox/master/jsm.json` |
+| QIST潇洒 | ✅ 成功 | `https://raw.githubusercontent.com/qist/tvbox/master/xiaosa/api.json` |
+| 东篱线路 | ✅ 成功 | `https://raw.githubusercontent.com/chitue/dongliTV/main/api.json` |
+| 无名 | ✅ 成功 | `https://6800.kstore.vip/fish.json` |
+| noimank | ✅ 成功 | `https://gitlab.com/noimank/tvbox/-/raw/main/tvbox1.json` |
+| FongMi专版 | ✅ 成功 | `https://www.252035.xyz/z/FongMi.json` |
+| 备用·tvyuan全量 | ✅ 成功 | `https://tv.cc0cd.cc.cd/` |
 <!-- STATUS_END -->
 
 ## 二、仓库结构
