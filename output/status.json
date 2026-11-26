@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-26 22:01:49",
+  "updated_at": "2026-11-27 00:01:45",
   "repo": "58285474/tvbox",
   "sources": [
     {
@@ -20,7 +20,7 @@
       "id": "wangerxiao",
       "name": "王二小",
       "ok": true,
-      "used_url": "http://new.王二小放牛娃.top",
+      "used_url": "https://d.kstore.dev/download/9280/wex.json",
       "error": null
     },
     {
@@ -49,9 +49,8 @@
       "id": "easy",
       "name": "Easy",
       "ok": true,
-      "used_url": "(缓存)",
-      "error": "502 Server Error: Bad Gateway for url: https://15318.kstore.space/easytv.jpg",
-      "cached": true
+      "used_url": "https://15318.kstore.space/easytv.jpg",
+      "error": null
     },
     {
       "id": "4k",
