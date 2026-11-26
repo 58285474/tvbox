@@ -6,14 +6,14 @@
   "sites": [
     {
       "key": "豆瓣",
-      "name": "首页 | 本接口免费",
+      "name": "首页 | 🐧熵侦（shāng zhēn）",
       "type": 3,
       "api": "csp_Douban",
       "searchable": 0
     },
     {
       "key": "配置中心",
-      "name": "中控台 | 🐧熵侦（shāng zhēn）",
+      "name": "配置中心 | 本接口免费",
       "type": 3,
       "api": "csp_Config",
       "searchable": 0,
