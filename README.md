@@ -95,7 +95,7 @@ tvbox/
 ## 四、自动更新机制
 
 - 推送后，GitHub 自动识别 `.github/workflows/update.yml`。
-- 默认每天 **02:00 和 14:00（UTC，即北京时间 10:00 和 22:00）** 自动更新一次。
+- 默认每天 **每天 05:15 和 11:15 和 15:15 和 17:15 和 23:15（UTC，即北京时间 01:15、07:15、13:15、19:15）** 自动更新一次。
 - 也可在 **Actions → Auto Update TVBox Configs → Run workflow** 手动触发。
 - 更新结果自动提交回 `main` 分支，README 状态表与徽章同步刷新。
 - 工作流使用内置 `GITHUB_TOKEN`，无需配置任何密钥。
