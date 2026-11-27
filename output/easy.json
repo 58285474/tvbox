@@ -1561,7 +1561,7 @@
   ],
   "lives": [
     {
-      "name": "央广",
+      "name": "Easy央广",
       "type": 0,
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/EasyXC/EasyTVbox/main/api/tv.png",
       "timeout": 10,
@@ -1569,9 +1569,9 @@
       "playerType": 2
     },
     {
-      "name": "Easy-体育赛事",
+      "name": "央广-聚合",
       "type": 0,
-      "url": "https://sports.easyzz.dpdns.org/live.m3u=187675",
+      "url": "http://45.192.97.170:5211/801210",
       "timeout": 10,
       "changeable": 1,
       "playerType": 2
