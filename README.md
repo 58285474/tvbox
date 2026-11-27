@@ -13,7 +13,7 @@
 ## 一、源可用性状态
 
 <!-- STATUS_START -->
-> 🔄 最近更新：2026-11-27 08:18:56（北京时间） · 成功 **20/20** 个源
+> 🔄 最近更新：2026-11-27 08:34:32（北京时间） · 成功 **20/20** 个源
 
 | 配置源 | 状态 | 使用地址 |
 | --- | --- | --- |
@@ -68,16 +68,26 @@ tvbox/
 | --- | --- | --- |
 | **多仓订阅（推荐）** | `https://raw.githubusercontent.com/58285474/tvbox/main/output/多仓订阅.json` | App 内可在各源之间切换 |
 | **单仓聚合** | `https://raw.githubusercontent.com/58285474/tvbox/main/output/单仓聚合.json` | 所有源站点合并成一个，无需切换 |
-| 单仓 · 肥猫 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/feimao.json` | 单独使用某一个源 |
-| 单仓 · 饭太硬 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/fantaiying.json` | |
-| 单仓 · 王二小 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/wangerxiao.json` | |
-| 单仓 · 老刘备 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/laoliubei.json` | |
-| 单仓 · 小马 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/xiaoma.json` | |
-| 单仓 · 讴歌 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/ouge.json` | |
-| 单仓 · 4K小盒子 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/4k.json` | |
-| 单仓 · 小盒子单仓 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/xiaohezi.json` | |
-| 单仓 · 拾光多仓 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/shiguang.json` | |
-| 单仓 · 挺好分享多仓 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/tinghao.json` | |
+| 单仓 · 饭太硬 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/fantaiying.json` | 单独使用某一个源 |
+| 单仓 · 肥猫 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/feimao.json` |  |
+| 单仓 · 王二小 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/wangerxiao.json` |  |
+| 单仓 · 老刘备 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/laoliubei.json` |  |
+| 单仓 · 小马 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/xiaoma.json` |  |
+| 单仓 · 讴歌 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/ouge.json` |  |
+| 单仓 · Easy | `https://raw.githubusercontent.com/58285474/tvbox/main/output/easy.json` |  |
+| 单仓 · 4K小盒子 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/4k.json` |  |
+| 单仓 · 小盒子单仓 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/xiaohezi.json` |  |
+| 单仓 · 嗷呜线路 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/aowu.json` |  |
+| 单仓 · 🚀盒子迷 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/hezimi.json` |  |
+| 单仓 · 🚀dxawi线路 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/dxawi.json` |  |
+| 单仓 · 🙀小何线路 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/xiaohe.json` |  |
+| 单仓 · QIST自用 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/qist.json` |  |
+| 单仓 · QIST潇洒 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/qist-xiaosa.json` |  |
+| 单仓 · 东篱线路 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/dongli.json` |  |
+| 单仓 · 无名 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/fish.json` |  |
+| 单仓 · noimank | `https://raw.githubusercontent.com/58285474/tvbox/main/output/noimank.json` |  |
+| 单仓 · FongMi专版 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/fongmi.json` |  |
+| 单仓 · 备用·tvyuan全量 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/tvyuan.json` |  |
 <!-- LINKS_END -->
 
 > 多仓订阅与单仓文件里的地址由脚本根据 `GITHUB_REPOSITORY` 环境变量自动生成。若国内直连 raw.githubusercontent.com 慢，可套一层 `ghproxy` / `gh-proxy` 等加速前缀。
