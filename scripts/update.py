@@ -279,6 +279,8 @@ def merge_configs(fetched):
 README_PATH = os.path.join(ROOT, "README.md")
 STATUS_START = "<!-- STATUS_START -->"
 STATUS_END = "<!-- STATUS_END -->"
+LINKS_START = "<!-- LINKS_START -->"
+LINKS_END = "<!-- LINKS_END -->"
 
 
 def update_readme(status, ok_count, total):
@@ -310,6 +312,40 @@ def update_readme(status, ok_count, total):
     prefix = readme.split(STATUS_START, 1)[0]
     suffix = readme.split(STATUS_END, 1)[1]
     new_readme = f"{prefix}{STATUS_START}\n{block}\n{STATUS_END}{suffix}"
+    with open(README_PATH, "w", encoding="utf-8") as f:
+        f.write(new_readme)
+
+
+def update_links(status):
+    """根据实际产出的源列表，自动重建 README 第三节的地址表（在 LINKS_START/END 标记之间）。
+
+    增删 config/sources.json 中的源后，该表格会随每次运行自动增减行，
+    地址按 GITHUB_REPOSITORY 自动拼接，换仓库/换分支也无需手动改 README。
+    """
+    if not os.path.exists(README_PATH):
+        return
+    with open(README_PATH, "r", encoding="utf-8") as f:
+        readme = f.read()
+    if LINKS_START not in readme or LINKS_END not in readme:
+        return  # 未放置标记则不改动
+
+    repo = status.get("repo") or DEFAULT_REPO
+    base = f"https://raw.githubusercontent.com/{repo}/main/output"
+
+    lines = [
+        "| 类型 | 地址 | 说明 |",
+        "| --- | --- | --- |",
+        f"| **多仓订阅（推荐）** | `{base}/多仓订阅.json` | App 内可在各源之间切换 |",
+        f"| **单仓聚合** | `{base}/单仓聚合.json` | 所有源站点合并成一个，无需切换 |",
+    ]
+    for i, s in enumerate(status["sources"]):
+        note = "单独使用某一个源" if i == 0 else ""
+        lines.append(f"| 单仓 · {s['name']} | `{base}/{s['id']}.json` | {note} |")
+    block = "\n".join(lines)
+
+    prefix = readme.split(LINKS_START, 1)[0]
+    suffix = readme.split(LINKS_END, 1)[1]
+    new_readme = f"{prefix}{LINKS_START}\n{block}\n{LINKS_END}{suffix}"
     with open(README_PATH, "w", encoding="utf-8") as f:
         f.write(new_readme)
 
@@ -452,6 +488,7 @@ def main() -> int:
     # 生成 shields 徽章并更新 README 状态表
     write_badge(ok_count, total)
     update_readme(status, ok_count, total)
+    update_links(status)
 
     print("\n" + "=" * 50)
     print(f"本次更新：{ok_count}/{total} 个源成功")
