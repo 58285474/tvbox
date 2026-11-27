@@ -2,7 +2,7 @@ name: Auto Update TVBox Configs
 
 # 注意：GitHub Actions 的 on 字段需加引号，避免被部分 YAML 解析器当作布尔值
 "on":
-  # 定时触发：每天 05:15 和 11:15 和 15:15 和 17:15 和 23:15（UTC）自动更新
+  # 定时触发：每天 05:15 和 11:15 和 17:15 和 23:15（UTC）自动更新
   schedule:
     - cron: "15 17,23,5,11 * * *"
   # 支持在 GitHub Actions 页面手动触发
