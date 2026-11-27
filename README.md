@@ -63,6 +63,7 @@ tvbox/
 
 部署完成后，把下面任一地址填入 App 的「设置 → 配置地址」：
 
+<!-- LINKS_START -->
 | 类型 | 地址 | 说明 |
 | --- | --- | --- |
 | **多仓订阅（推荐）** | `https://raw.githubusercontent.com/58285474/tvbox/main/output/多仓订阅.json` | App 内可在各源之间切换 |
@@ -77,6 +78,7 @@ tvbox/
 | 单仓 · 小盒子单仓 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/xiaohezi.json` | |
 | 单仓 · 拾光多仓 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/shiguang.json` | |
 | 单仓 · 挺好分享多仓 | `https://raw.githubusercontent.com/58285474/tvbox/main/output/tinghao.json` | |
+<!-- LINKS_END -->
 
 > 多仓订阅与单仓文件里的地址由脚本根据 `GITHUB_REPOSITORY` 环境变量自动生成。若国内直连 raw.githubusercontent.com 慢，可套一层 `ghproxy` / `gh-proxy` 等加速前缀。
 
